@@ -1,31 +1,4 @@
-# CS 61C Spring 2015 Project 1-2 
-# linker_utils.s
-
-#==============================================================================
-#                             Project 1-2 Part 3b
-#                             Linker Utils README
-#==============================================================================
-# Implement inst_needs_relocation() and relocate_inst().
-#
-# It may be helpful to understand how our linker works first. Our linker first
-# opens each file, reads, and stores the symbol and relocation data (found in
-# the .symbol and .relocation section of each object file). During this pass
-# it also computes the size of each text segment so that the final addresses of
-# each symbol is known. The function fill_data(), located at the bottom of this
-# file, performs this operation on a single file. The linker calls fill_data()
-# on each object file.
-#
-# At this step, the symbol table contains the absolute address of every symbol
-# as well as the relative byte offsets of each item that needs relocation (why
-# is one absolute and the other relative?). The linker then copies the contents
-# of each .text segment into the same executable. However, certain instructions
-# need relocation. The inst_needs_relocation() function checks whether an 
-# instruction need relocation. If so, the relocate_inst() function will perform
-# the relocation.
-#==============================================================================
-
-.include "symbol_list.s"
-.include "parsetools.s"
+# NOTE: DEPENDS on `symbol_list.s` and `parsetools.s`
 
 .data
 textLabel:	.asciiz ".text"

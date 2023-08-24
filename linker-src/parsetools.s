@@ -75,7 +75,7 @@ is_digit:
 ###############################################################################
 
 #------------------------------------------------------------------------------
-# function parse_int() - DO NOT MODIFY THIS FUNCTION
+# function parse_int()
 #------------------------------------------------------------------------------
 # Parses the string as an unsigned integer. The only bases supported are 10 and
 # 16. We will assume that the number is valid, and that overflow does not happen.
@@ -112,7 +112,7 @@ parse_int_done:
 	jr $ra				# End parse_int()
 
 #------------------------------------------------------------------------------
-# function tokenize() - DO NOT MODIFY THIS FUNCTION
+# function tokenize()
 #------------------------------------------------------------------------------
 # Converts a line of symbol/relocation table output into a numerical address
 # and a name string, which can then be added into the appropriate SymbolList
