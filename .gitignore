@@ -2,4 +2,5 @@
 regs.c
 a.out
 in.s
+*.int
 bin

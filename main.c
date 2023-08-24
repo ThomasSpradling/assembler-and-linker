@@ -4,29 +4,33 @@
 #include <string.h>
 #include "src/assembler.h"
 
-bool file_exists (char *filename) {
+// Takes in a file `filename` and returns whether or not a file exists.
+static bool file_exists(char *filename) {
   struct stat buffer;
   return stat(filename, &buffer) == 0;
 }
 
 int main(int argc, char **argv) {
   if (argc < 2 || argc >= 4) {
-    printf("ERROR: Incorrect number of arguments. Usage: ./assembler <input_file> [output_file].\n");
+    fprintf(stderr, "ERROR: Incorrect number of arguments. Usage: ./assembler <input_file> [output_file].\n");
     return 3;
   }
   int in_filename_length = strlen(argv[1]);
   if (!file_exists(argv[1]) || strcmp(argv[1] + in_filename_length - 2, ".s") != 0) {
-    printf("ERROR: Input file must exist and filename must end in `.s`.\n");
+    fprintf(stderr, "ERROR: Input file must exist and filename must end in `.s`.\n");
     return 3;
   }
 
   int out_filename_length = strlen(argv[1]);
   if (argc == 3 && !strcmp(argv[2] + out_filename_length - 4, ".out")) {
-    printf("ERROR: Output filename must end in `.out`.\n");
+    fprintf(stderr, "ERROR: Output filename must end in `.out`.\n");
     return 3;
   }
 
   char *output_file = argc > 3 ? argv[2] : "a.out";
-  assemble(argv[1], output_file);
-  return 0;
+  int error_code = assemble(argv[1], output_file);
+  if (error_code != 0) {
+    fprintf(stderr, "One or more errors encountered during assembly operation.\n");
+  }
+  return error_code;
 }
