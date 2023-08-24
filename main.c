@@ -27,7 +27,7 @@ int main(int argc, char **argv) {
     return 3;
   }
 
-  char *output_file = argc > 3 ? argv[2] : "a.out";
+  char *output_file = argc < 3 ? "a.out" : argv[2];
   int error_code = assemble(argv[1], output_file);
   if (error_code != 0) {
     fprintf(stderr, "One or more errors encountered during assembly operation.\n");

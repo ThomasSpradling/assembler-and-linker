@@ -23,29 +23,27 @@ int is_valid_label(const char* label) {
 }
 
 // Converts a string to a long.
-int read_num(long *output, const char *str, long lower_bound, long upper_bound, int bits) {
+int read_num(long int *output, const char *str, long int lower_bound, long int upper_bound, int bits) {
     if (!str || !output || bits <= 0 || bits > 32) {
         return -1;
     }
     
-    long num = strtol(str, NULL, 0);
-    if (num == 0L) {
-        return -1;
-    }
+    long local_num = strtol(str, NULL, 0);
     
     long max_val = (1L << (bits - 1)) - 1;
     long min_val = -(1L << (bits - 1));
     
-    if (num > max_val && num <= (1L << bits) - 1) {
-        num -= (1L << bits);
+    if (local_num > max_val && local_num <= (1L << bits) - 1) {
+        local_num -= (1L << bits);
     }
     
-    if (min_val <= num && num <= max_val && lower_bound <= num && num <= upper_bound) {
-        *output = (int) num;
+    if (min_val <= local_num && local_num <= max_val && lower_bound <= local_num && local_num <= upper_bound) {
+        *output = local_num;
         return 0;
     }
     return -1;
 }
+
 
 // Takes in a register name and produces the the corresponding register number.
 int read_register(const char *str) {

@@ -105,9 +105,6 @@ int translate_file(char *input_file, char *output_file, SymbolTable *table, Symb
     while (fgets(line, sizeof(line), input) != NULL) {
         line_num++;
 
-        char current_line[100];
-        strcpy(current_line, line);
-
         char *current = strtok(line, " \n");
         char *name = current;
 
@@ -120,7 +117,7 @@ int translate_file(char *input_file, char *output_file, SymbolTable *table, Symb
 
         err_code = translate_instruction(output, name, args, num_args, table, relocation_table, byte_offset);
         if (err_code != 0) {
-            fprintf(stderr, "ERROR: Invalid instruction at line %i: %s", line_num, current_line);
+            fprintf(stderr, "ERROR: Invalid instruction at line %i: %s\n", line_num, line);
         }
         byte_offset += 4;
     }
@@ -150,7 +147,6 @@ int assemble(char *input_file, char *output_file) {
         free(table);
         return clean_exit_code;
     }
-
 
     SymbolTable *relocation_table = create_table();
     int translate_exit_code = translate_file("temp.int", output_file, table, relocation_table);
